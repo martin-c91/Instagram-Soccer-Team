@@ -7,3 +7,5 @@ class MY_Controller extends CI_Controller
     parent::__construct();
   }
 }
+
+require(APPPATH.'Core/Admin_Controller.php'); // load Admin_Controller class
