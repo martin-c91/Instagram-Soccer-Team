@@ -1,11 +1,9 @@
 <?PHP
 
-class Admin_Controller extends MY_Controller{
-
-
+class MY_Controller extends CI_Controller
+{
   function __construct()
   {
     parent::__construct();
   }
-
 }

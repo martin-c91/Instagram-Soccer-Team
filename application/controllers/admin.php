@@ -50,4 +50,5 @@ class Admin extends Admin_Controller {
                         $this->_render_page('auth/index', $this->data);
                 }
         }
+
 }
