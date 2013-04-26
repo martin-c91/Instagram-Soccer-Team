@@ -14,7 +14,7 @@ class Team extends CI_Controller {
           $data['result'] = $this->team->get_team();
 
           $this->load->view('header');
-          $this->load->view('admin/index', $data);
+          $this->load->view('admin/all_team', $data);
           $this->load->view('footer');
         }
 
@@ -35,9 +35,9 @@ class Team extends CI_Controller {
               if($this->form_validation->run())
                 {
                   $data['values'] = $this->input->post();
-                  $this->tupdate_team($id, $data['values']);
+                  $this->team->update_team($id, $data['values']);
                   $this->session->set_flashdata('message', 'Team Successfully Updated');
-                  redirect('admin/team/edit/'.$id);
+                  redirect('admin/team');
                 }
             }
 
