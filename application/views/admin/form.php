@@ -1,5 +1,6 @@
 <h3>Add/Edit Team</h3>
 
+<script type="text/javascript" src="<?=base_url('assets/jscolor/jscolor.js');?>"></script>
 
 <?php echo form_open(''); ?>
 
@@ -12,10 +13,10 @@
          <input type="text" name="team_name" value="<?=set_value('team_name', $values->team_name)?>">
 
     <label class="control-label" for="inputColor1">Color1</label>
-    <input type="text" name="team_color1" value="<?=set_value('team_color1', $values->team_color1)?>">
+    <input class="color" type="text" name="team_color1" value="<?=set_value('team_color1', $values->team_color1)?>">
 
     <label class="control-label" for="inputColor2">Color2</label>
-    <input type="text" name="team_color2" value="<?=set_value('team_color2', $values->team_color2)?>">
+    <input class="color" type="text" name="team_color2" value="<?=set_value('team_color2', $values->team_color2)?>">
 
     <div class="controls">
       <button type="submit" class="btn">Submit</button>

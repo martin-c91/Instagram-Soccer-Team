@@ -39,7 +39,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/nam-ig';
+$config['base_url']	= 'http://75.85.8.219/nam-ig';
 
 /*
 |--------------------------------------------------------------------------
