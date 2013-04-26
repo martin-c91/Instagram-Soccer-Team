@@ -27,23 +27,31 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?=base_url()?>/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?=base_url()?>/assets/ico/apple-touch-icon-114-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?=base_url()?>/assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="<?=base_url()?>/assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="<?=base_url()?>/assets/ico/favicon.png">
-  </head>
+                     <link rel="apple-touch-icon-precomposed" href="<?=base_url()?>/assets/ico/apple-touch-icon-57-precomposed.png">
+                                    <link rel="shortcut icon" href="<?=base_url()?>/assets/ico/favicon.png">
+   </head>
 
-  <body>
+   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">Instagram</a>
-        </div>
-      </div>
-    </div>
+     <div class="navbar navbar-inverse navbar-fixed-top">
+       <div class="navbar-inner">
+         <div class="container">
+           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="brand" href="<?=site_url()?>">Instagram</a>
+         </div>
+       </div>
+     </div>
 
-    <div class="container">
+     <div class="container">
+
+ <?
+   echo validation_errors();
+if($this->session->flashdata('message')) echo '<div class="alert alert-success">'.
+                                           $this->session->flashdata('message').
+                                           '</div>';
+
+?>

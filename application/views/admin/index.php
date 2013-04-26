@@ -1,36 +1,8 @@
-<h3>Add/Edit Team</h3>
-
-button
-<input type="hidden" name="action" value="<?=$action?>" />
-
-  <div class="row">
-
-    <div class="span3"
-         <label class="control-label" for="inputName">Team Name</label>
-         <input type="text" id="inputName" value="<?=$form->team_name?>">
-  </div>
-
-  <div class="span3">
-    <label class="control-label" for="inputColor1">Color1</label>
-    <input type="text" id="inputColor" value="<?=$form->team_color1?>">
-
-    <label class="control-label" for="inputColor2">Color2</label>
-    <input type="text" id="inputColor2" value="<?=$form->team_color2?>">
-
-    <div class="controls">
-      <button type="submit" class="btn">Submit</button>
-    </div>
-
-  </div>
-
-</div>
-
-
-</form>
-
 <h3>View All Teams</h3>
 
-<section id="table">
+<a class="btn btn-primary" href="<?=site_url('admin/team/edit/')?>">Add New Team</a>
+
+<section id="table table-bordered table-striped">
   <table class="table">
     <thead>
       <tr>
@@ -46,9 +18,13 @@ button
       <tr>
         <td><?=$row->team_id;?></td>
         <td><?=$row->team_name;?></td>
-        <td><?=$row->team_color1;?></td>
-        <td><?=$row->team_color2;?></td>
-        <td><a href='#'>Edit</a></td>
+        <td><div id="divpreview" style="float: left; height: 100%; width: 100px; background-color: #<?=$row->team_color1;?>;">&nbsp;</div></td>
+        <td><div id="divpreview" style="float: left; height: 100%; width: 100px; background-color: #<?=$row->team_color2;?>;">&nbsp;</div></td>
+        <td><?=anchor('admin/team/edit/'.$row->team_id, 'Edit')?> |
+   <a href="<?=site_url('admin/team/delete/'.$row->team_id)?>"
+   onclick="return confirm('Are you sure?');">
+   Delete
+   </a></td>
       </tr>
       <?endforeach?>
     </tbody>

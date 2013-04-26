@@ -64,8 +64,8 @@
 |
 */
 
-$route['default_controller'] = 'welcome';
-$route['404_override'] = 'errors/page_missing';
+$route['default_controller'] = 'admin/team';
+$route['404_override'] = '';
 $route['admin'] = 'admin/team';
 
 /* End of file routes.php */
