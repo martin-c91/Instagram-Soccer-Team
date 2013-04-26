@@ -1,25 +1,31 @@
+<h3>Add/Edit Team</h3>
 
+button
+<input type="hidden" name="action" value="<?=$action?>" />
 
-<h3>Add New Team</h3>
+  <div class="row">
 
-<form class="form-horizontal">
-  <div class="control-group">
-    <label class="control-label" for="inputTeam">Team</label>
-    <div class="controls">
-      <input type="text" id="inputTeam" placeholder="Team">
-    </div>
+    <div class="span3"
+         <label class="control-label" for="inputName">Team Name</label>
+         <input type="text" id="inputName" value="<?=$form->team_name?>">
   </div>
-  <div class="control-group">
-    <label class="control-label" for="inputColor">Color</label>
-    <div class="controls">
-      <input type="password" id="inputColor" placeholder="Color">
-    </div>
-  </div>
-  <div class="control-group">
+
+  <div class="span3">
+    <label class="control-label" for="inputColor1">Color1</label>
+    <input type="text" id="inputColor" value="<?=$form->team_color1?>">
+
+    <label class="control-label" for="inputColor2">Color2</label>
+    <input type="text" id="inputColor2" value="<?=$form->team_color2?>">
+
     <div class="controls">
       <button type="submit" class="btn">Submit</button>
     </div>
+
   </div>
+
+</div>
+
+
 </form>
 
 <h3>View All Teams</h3>
@@ -30,29 +36,21 @@
       <tr>
         <th>ID</th>
         <th>Team Name</th>
-        <th>Color</th>
-        <th>Actions</th>
+        <th>Color1</th>
+        <th>Color2</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
+      <?foreach($result as $row):?>
       <tr>
-        <td>1</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td><?=$row->team_id;?></td>
+        <td><?=$row->team_name;?></td>
+        <td><?=$row->team_color1;?></td>
+        <td><?=$row->team_color2;?></td>
+        <td><a href='#'>Edit</a></td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
+      <?endforeach?>
     </tbody>
   </table>
 </section>
