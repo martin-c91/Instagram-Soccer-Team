@@ -41,17 +41,25 @@
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
            </button>
-           <a class="brand" href="<?=site_url()?>">Instagram</a>
+           <a class="brand" href="<?=site_url('admin')?>">Admin</a>
+   <ul class="nav pull-right">
+                      <li><a href="<?=site_url('auth/logout')?>">Logout</a></li>
+
+   </ul>
          </div>
        </div>
      </div>
 
      <div class="container">
 
- <?
+   <?
    echo validation_errors();
-if($this->session->flashdata('message')) echo '<div class="alert alert-success">'.
+if($this->session->flashdata('message')) echo '<div class="alert">'.
                                            $this->session->flashdata('message').
+                                           '</div>';
+
+if($this->session->flashdata('message_error')) echo '<div class="alert alert-error">'.
+                                           $this->session->flashdata('message_error').
                                            '</div>';
 
 ?>
