@@ -8,6 +8,7 @@ class Player extends Admin_Controller {
   {
     parent::__construct();
     error_reporting(E_ALL ^ (E_NOTICE));
+    $this->load->model('Player_model', 'player');
   }
 
   function view_team($team_id)
@@ -17,7 +18,7 @@ class Player extends Admin_Controller {
     $data['team'] = $this->team->get_team($team_id);
 
     //get player query
-    $data['players'] = $this->get_all_players($team_id);
+    $data['players'] = $this->player->get_all_players($team_id);
 
     //automaticall load add
     $this->add($team_id);
@@ -35,13 +36,13 @@ class Player extends Admin_Controller {
     $this->validate();
 
     //get player query
-    $data['player'] = $this->get_player($player_id);
+    $data['player'] = $this->player->get_player($player_id);
 
     //if form is validated, edit player and set redirect
     if($this->form_validation->run())
       {
         $data['player'] = $this->input->post();
-        $player_id = $this->update_player($player_id, $data['player']);
+        $player_id = $this->player->update_player($player_id, $data['player']);
 
         //redirect and set message
         $this->session->set_flashdata('message', 'Player Successfully Edited');
@@ -64,7 +65,7 @@ class Player extends Admin_Controller {
         $data['player'] = $this->input->post();
         $data['player']['team_id'] = $team_id;
 
-        $player_id = $this->insert_player($data['player']);
+        $player_id = $this->player->insert_player($data['player']);
 
         $this->session->set_flashdata('message', 'Player Successfully Added');
         redirect('admin/player/view_team/'.$team_id);
@@ -75,7 +76,7 @@ class Player extends Admin_Controller {
   function delete($player_id, $team_id=NULL){
     if($player_id)
       {
-        $this->delete_player($player_id);
+        $this->player->delete_player($player_id);
 
         $this->session->set_flashdata('message', 'Player Successfully Deleted');
         redirect('admin/player/view_team/'.$team_id);
@@ -83,38 +84,9 @@ class Player extends Admin_Controller {
 
   }
 
-
-  //temp business logic here
-
-  function get_all_players($team_id)
-  {
-    $query = $this->db->get_where('players', array('team_id'=>$team_id));
-    return $query->result();
-  }
-
-  function get_player($player_id)
-  {
-    $query = $this->db->get_where('players', array('player_id'=>$player_id));
-    return $query->row();
-  }
-
-  function insert_player($data){
-    $this->db->insert('players', $data);
-    return $this->db->insert_id();
-  }
-
-  function update_player($player_id, $data){
-    $this->db->update('players', $data, array('player_id' => $player_id));
-    return $this->db->insert_id();
-  }
-
-
-  function delete_player($player_id)
-  {
-    $this->db->delete('players', array('player_id' => $player_id));
-
-  }
-
+  /*
+   * Validate form
+   */
   private function validate(){
     $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<div class="alert">', '</div>');
