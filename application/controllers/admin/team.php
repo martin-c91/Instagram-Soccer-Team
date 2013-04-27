@@ -59,14 +59,15 @@ class Team extends CI_Controller {
 
         }
 
-        function delete($id, $confirmation='yes')
+        function delete($id)
         {
           if($id)
             {
              $this->team->delete_team($id);
+
+             $this->session->set_flashdata('message', 'Team Successfully Deleted');
+             redirect('admin');
             }
-          $this->session->set_flashdata('message', 'Team Successfully Deleted');
-          redirect('admin');
         }
 
 }

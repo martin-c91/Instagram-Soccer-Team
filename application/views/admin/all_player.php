@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <?foreach($player as $row):?>
+      <?foreach($players as $row):?>
       <tr>
         <td><?=$row->player_id?></td>
         <td><?=$row->player_name?></td>
@@ -19,7 +19,7 @@
    <a href="http://instagram.com/<?=$row->player_instagram;?>"><?=$row->player_instagram;?></a>
    </td>
    <td><?=anchor("admin/player/edit/$row->player_id", 'Edit')?> |
-   <a href="<?=site_url('admin/player/delete/'.$row->player_id)?>"
+   <a href="<?=site_url("admin/player/delete/$row->player_id/$row->team_id")?>"
    onclick="return confirm('Are you sure?');">
    Delete
    </a></td>
