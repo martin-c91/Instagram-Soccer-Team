@@ -43,7 +43,7 @@
            </button>
            <a class="brand" href="<?=site_url('admin')?>">Admin</a>
    <ul class="nav pull-right">
-                      <li><a href="<?=site_url('auth/logout')?>">Logout</a></li>
+                      <li><a href="<?=site_url('admin/auth/logout')?>">Logout</a></li>
 
    </ul>
          </div>

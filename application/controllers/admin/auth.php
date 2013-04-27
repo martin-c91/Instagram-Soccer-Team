@@ -28,12 +28,12 @@ class Auth extends CI_Controller {
                       if (!$this->ion_auth->logged_in())
                 {
                         //redirect them to the login page
-                        redirect('auth/login', 'refresh');
+                        redirect('admin/auth/login', 'refresh');
                 }
                 elseif (!$this->ion_auth->is_admin())
                 {
                         //redirect them to the home page because they must be an administrator to view this
-                        redirect('/', 'refresh');
+                        redirect('admin/', 'refresh');
                 }
                 else
                 {
@@ -71,14 +71,14 @@ class Auth extends CI_Controller {
                                 //if the login is successful
                                 //redirect them back to the home page
                                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                                redirect('/', 'refresh');
+                                redirect('admin');
                         }
                         else
                         {
                                 //if the login was un-successful
                                 //redirect them back to the login page
                                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                                redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+                                redirect('admin/auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
                         }
                 }
                 else
@@ -111,7 +111,7 @@ class Auth extends CI_Controller {
 
                 //redirect them to the login page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('auth/login', 'refresh');
+                redirect('admin/auth/login', 'refresh');
         }
 
         //change password
@@ -123,7 +123,7 @@ class Auth extends CI_Controller {
 
                 if (!$this->ion_auth->logged_in())
                 {
-                        redirect('auth/login', 'refresh');
+                        redirect('admin/auth/login', 'refresh');
                 }
 
                 $user = $this->ion_auth->user()->row();
@@ -177,7 +177,7 @@ class Auth extends CI_Controller {
                         else
                         {
                                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                                redirect('auth/change_password', 'refresh');
+                                redirect('admin/auth/change_password', 'refresh');
                         }
                 }
         }
@@ -305,7 +305,7 @@ class Auth extends CI_Controller {
                                         else
                                         {
                                                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                                                redirect('auth/reset_password/' . $code, 'refresh');
+                                                redirect('admin/auth/reset_password/' . $code, 'refresh');
                                         }
                                 }
                         }
@@ -381,7 +381,7 @@ class Auth extends CI_Controller {
                         }
 
                         //redirect them back to the auth page
-                        redirect('auth', 'refresh');
+                        redirect('admin/auth', 'refresh');
                 }
         }
 
@@ -392,7 +392,7 @@ class Auth extends CI_Controller {
 
                 if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
                 {
-                        redirect('auth', 'refresh');
+                        redirect('admin/auth', 'refresh');
                 }
 
                 //validate form input
@@ -498,7 +498,7 @@ class Auth extends CI_Controller {
 
                 if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
                 {
-                        redirect('auth', 'refresh');
+                        redirect('admin/auth', 'refresh');
                 }
 
                 $user = $this->ion_auth->user($id)->row();
@@ -636,7 +636,7 @@ class Auth extends CI_Controller {
 
                 if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
                 {
-                        redirect('auth', 'refresh');
+                        redirect('admin/auth', 'refresh');
                 }
 
                 //validate form input
@@ -683,14 +683,14 @@ class Auth extends CI_Controller {
                 // bail if no group id given
                 if(!$id || empty($id))
                 {
-                        redirect('auth', 'refresh');
+                        redirect('admin/auth', 'refresh');
                 }
 
                 $this->data['title'] = $this->lang->line('edit_group_title');
 
                 if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
                 {
-                        redirect('auth', 'refresh');
+                        redirect('admin/auth', 'refresh');
                 }
 
                 $group = $this->ion_auth->group($id)->row();
