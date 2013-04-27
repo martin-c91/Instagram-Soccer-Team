@@ -18,7 +18,7 @@
       <?foreach($result as $row):?>
       <tr>
         <td><?=$row->team_id;?></td>
-        <td><?=anchor('admin/player/view/'.$row->team_id, $row->team_name)?></td>
+        <td><?=anchor('admin/player/view_team/'.$row->team_id, $row->team_name)?></td>
    <td>
             <?=$row->team_school?>
    </td>

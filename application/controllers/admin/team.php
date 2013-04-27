@@ -30,24 +30,24 @@ class Team extends CI_Controller {
           //if we're editing, we must run query where id=$id
           if($id)
             {
-              $data['values'] = $this->team->get_team($id);
+              $data['team'] = $this->team->get_team($id);
 
               if($this->form_validation->run())
                 {
-                  $data['values'] = $this->input->post();
-                  $this->team->update_team($id, $data['values']);
+                  $data['team'] = $this->input->post();
+                  $this->team->update_team($id, $data['team']);
                   $this->session->set_flashdata('message', 'Team Successfully Updated');
                   redirect('admin/team');
                 }
             }
 
-
+          //if form is validated and no $team_id, then add new team and redirect
           if($this->form_validation->run() && !$id)
             {
 
-              $data['values'] = $this->input->post();
+              $data['team'] = $this->input->post();
 
-              $id = $this->team->new_team($data['values']);
+              $id = $this->team->new_team($data['team']);
 
               $this->session->set_flashdata('message', 'Team Successfully Added');
               redirect('admin/team/edit/'.$id);
