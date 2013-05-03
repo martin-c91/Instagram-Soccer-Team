@@ -3,6 +3,7 @@
 <?php echo form_open(''); ?>
 
 <input type="hidden" name="player_id" value="<?=set_value('player_id', $player->player_id)?>">
+<input type="hidden" name="player_instagram_id" value="<?=set_value('player_instagram_id', $player->player_instagram_id)?>">
 <input type="hidden" name="team_id" value="<?=set_value('team_id', $player->team_id)?>">
 
 <div class="row">

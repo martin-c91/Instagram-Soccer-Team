@@ -42,13 +42,15 @@ class Player extends Admin_Controller {
     if($this->form_validation->run())
       {
         $data['player'] = $this->input->post();
+        $data['player']['player_instagram_id'] = $this->data['player']['player_instagram_id'];
+
         $player_id = $this->player->update_player($player_id, $data['player']);
 
         //redirect and set message
         $this->session->set_flashdata('message', 'Player Successfully Edited');
-        redirect('admin/player/view_team/'.$data['player']['team_id']);
+        //redirect('admin/player/view_team/'.$data['player']['team_id']);
       }
-
+    print_r($data);
     //load views
     $this->load->view('header');
     $this->load->view('admin/form_player', $data);
@@ -64,6 +66,7 @@ class Player extends Admin_Controller {
       {
         $data['player'] = $this->input->post();
         $data['player']['team_id'] = $team_id;
+        $data['player']['player_instagram_id'] = $this->data['player']['player_instagram_id'];
 
         $player_id = $this->player->insert_player($data['player']);
 
@@ -87,12 +90,32 @@ class Player extends Admin_Controller {
   /*
    * Validate form
    */
-  private function validate(){
+  public function validate(){
     $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<div class="alert">', '</div>');
 
     $this->form_validation->set_rules('player_name', 'Player Name', 'required');
-    $this->form_validation->set_rules('player_instagram', 'Player Instagram ID', 'required');
+    $this->form_validation->set_rules('player_instagram', 'Player Instagram Username', 'callback_ig_username_check|required');
+  }
 
+  /**
+   * Function to check if IG username exist
+   * @instagram_username var
+   * @return bool
+   **/
+  public function ig_username_check($instagram_username)
+  {
+    $result = $this->instagram_api->userSearch($instagram_username);
+
+    if(strcasecmp($result->data[0]->username, $instagram_username) == 0)
+      {
+       $this->data['player']['player_instagram_id'] = $result->data[0]->id;
+       return true;
+      }
+    else
+      {
+        $this->form_validation->set_message('ig_username_check', 'Instagram username can not be verified.');
+        return false;
+      }
   }
 }

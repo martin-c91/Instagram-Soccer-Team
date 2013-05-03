@@ -20,7 +20,7 @@ class Instagram extends CI_Controller {
     $this->load->library('instagram_api');
 
     // Get popular media
-    $popular_media =$this->instagram_api->getUserRecent('T_Yeldon');
+    $popular_media =$this->instagram_api->getUserRecent('362321667');
 
     print_r($popular_media);
 
