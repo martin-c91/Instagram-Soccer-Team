@@ -15,7 +15,7 @@ $config['instagram_client_secret']	= 'fce9aaa293604ac78a2303826348e88e';
 $config['instagram_callback_url']	= '';
 $config['instagram_website']		= '';
 $config['instagram_description']	= '';
-
+$config['instagram_cache_ttl']          = '5mins'; //default is 5 mins
 // There was issues with some servers not being able to retrieve the data through https
 // If you have this problem set the following to FALSE
 // See https://github.com/ianckc/CodeIgniter-Instagram-Library/issues/5 for a discussion on this
