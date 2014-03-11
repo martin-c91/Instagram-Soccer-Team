@@ -64,7 +64,7 @@
 |
 */
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'picture';
 $route['404_override'] = '';
 $route['admin'] = 'admin/team';
 
