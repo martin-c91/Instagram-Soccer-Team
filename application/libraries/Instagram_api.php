@@ -103,33 +103,54 @@ class Instagram_api {
      */
     function __apiCall($url, $post_parameters = FALSE) {
 
+      //delete outdated cache
+      $cachettl = $this->codeigniter_instance->config->item('instagram_cache_ttl');
+      $diff=strtotime('-'.$cachettl, time());
+      $this->codeigniter_instance->db->delete('ig_cache', array('CREATED <' => date("Y-m-d H:i:s", $diff)));
+
+
+      //check if row for this $url exist
+      $query = $this->codeigniter_instance->db->get_where('ig_cache', array('CACHE_ID' => $url));
+
+      //if this is a new query, execute curl and insert query
+      if($query->result()){
+
+        $row = $query->result();
+        return json_decode($row[0]->CONTENT);
+
+      }else{
+
         // Initialize the cURL session
-            $curl_session = curl_init();
+        $curl_session = curl_init();
+        // Set the URL of api call
+        curl_setopt($curl_session, CURLOPT_URL, $url);
+        // If there are post fields add them to the call
+        if($post_parameters !== FALSE) {
+          curl_setopt ($curl_session, CURLOPT_POSTFIELDS, $post_parameters);
+        }
+        // Return the curl results to a variable
+        curl_setopt($curl_session, CURLOPT_RETURNTRANSFER, 1);
+        // There was issues with some servers not being able to retrieve the data through https
+        // The config variable is set to TRUE by default. If you have this problem set the config variable to FALSE
+        // See https://github.com/ianckc/CodeIgniter-Instagram-Library/issues/5 for a discussion on this
+        curl_setopt($curl_session, CURLOPT_SSL_VERIFYPEER, $this->codeigniter_instance->config->item('instagram_ssl_verify'));
+        // Execute the cURL session
+        $contents = curl_exec ($curl_session);
+        // Close cURL session
+        curl_close ($curl_session);
 
-            // Set the URL of api call
-                curl_setopt($curl_session, CURLOPT_URL, $url);
+        //insert into database
+        $data = array(
+                      'CACHE_ID' => $url,
+                      'CONTENT' => $contents,
+                      'CREATED' => date("Y-m-d H:i:s"),
+                      );
+        $this->codeigniter_instance->db->insert('ig_cache', $data);
 
-                // If there are post fields add them to the call
-                if($post_parameters !== FALSE) {
-                        curl_setopt ($curl_session, CURLOPT_POSTFIELDS, $post_parameters);
-                }
+        //return
+        return json_decode($contents);
 
-                // Return the curl results to a variable
-            curl_setopt($curl_session, CURLOPT_RETURNTRANSFER, 1);
-
-            // There was issues with some servers not being able to retrieve the data through https
-            // The config variable is set to TRUE by default. If you have this problem set the config variable to FALSE
-            // See https://github.com/ianckc/CodeIgniter-Instagram-Library/issues/5 for a discussion on this
-            curl_setopt($curl_session, CURLOPT_SSL_VERIFYPEER, $this->codeigniter_instance->config->item('instagram_ssl_verify'));
-
-            // Execute the cURL session
-            $contents = curl_exec ($curl_session);
-
-                // Close cURL session
-                curl_close ($curl_session);
-
-                // Return the response
-                return json_decode($contents);
+      }
 
     }
 
